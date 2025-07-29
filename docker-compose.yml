@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      # Nasłuchiwanie na wszystkich interfejsach wewnątrz kontenera:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      # Protokół i publiczny URL aplikacji:
+      - N8N_PROTOCOL=https
+      - N8N_PUBLIC_URL=https://n8nxc.113221.xyz
+      # Baza danych (SQLite, plik w wolumenie):
+      - DB_TYPE=sqlite
+      - DB_SQLITE_VACUUM_ON_STARTUP=true
+      # Przykładowa niestandardowa zmienna (możesz dodać własne):
+      - CUSTOM_VAR=${CUSTOM_VAR}
+    volumes:
+      # Dane n8n przechowywane poza kontenerem:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
