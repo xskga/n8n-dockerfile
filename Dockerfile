@@ -1,0 +1,3 @@
+FROM n8nio/n8n:latest
+ENV GENERIC_TIMEZONE=Europe/Warsaw
+EXPOSE 5678
